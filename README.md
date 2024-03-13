@@ -4,5 +4,6 @@
 
 Запуск бота через Docker:
 
-1. docker build -t AnimalsBot .
-2. docker run --name animals_bot AnimalsBot
+1. Создать в проекте файл .env по примеру как в .env.example
+2. docker build -t AnimalsBot .
+3. docker run --name animals_bot AnimalsBot
