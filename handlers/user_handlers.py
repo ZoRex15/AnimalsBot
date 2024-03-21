@@ -40,7 +40,8 @@ async def help(message: Message):
 
 @router.message(Command(commands=['cat']))
 async def send_random_cat_image(message: Message):
-    image = URLInputFile(url=get_url_cat_photo())
+    url = await get_url_cat_photo()
+    image = URLInputFile(url=url)
     await message.answer_photo(
         photo=image,
         reply_markup=create_another_photo(animal='cat')
@@ -48,7 +49,8 @@ async def send_random_cat_image(message: Message):
 
 @router.message(Command(commands=['dog']))
 async def send_random_cat_image(message: Message):
-    image = URLInputFile(url=get_url_dog_photo())
+    url = await get_url_dog_photo()
+    image = URLInputFile(url=url)
     await message.answer_photo(
         photo=image,
         reply_markup=create_another_photo(animal='dog')
@@ -56,7 +58,8 @@ async def send_random_cat_image(message: Message):
 
 @router.message(Command(commands=['capybara']))
 async def send_random_cat_image(message: Message):
-    image = URLInputFile(url=get_url_capybara_photo())
+    url = await get_url_capybara_photo()
+    image = URLInputFile(url=url)
     await message.answer_photo(
         photo=image,
         reply_markup=create_another_photo(animal='capybara')
@@ -64,7 +67,8 @@ async def send_random_cat_image(message: Message):
 
 @router.message(Command(commands=['panda']))
 async def send_random_cat_image(message: Message):
-    image = URLInputFile(url=get_url_panda_photo())
+    url = await get_url_panda_photo()
+    image = URLInputFile(url=url)
     await message.answer_photo(
         photo=image,
         reply_markup=create_another_photo(animal='panda')
@@ -72,7 +76,8 @@ async def send_random_cat_image(message: Message):
 
 @router.message(Command(commands=['fox']))
 async def send_fox_photo(message: Message):
-    image = URLInputFile(url=get_url_fox_photo())
+    url = await get_url_fox_photo()
+    image = URLInputFile(url=url)
     await message.answer_photo(
         photo=image,
         reply_markup=create_another_photo(animal='fox')
@@ -87,7 +92,7 @@ async def another_photo(callback: CallbackQuery):
         'panda': get_url_panda_photo,
         'fox': get_url_fox_photo
     }
-    url = animals[callback.data]()
+    url = await animals[callback.data]()
     media = InputMediaPhoto(media=url)
     try:
         await callback.message.edit_media(
